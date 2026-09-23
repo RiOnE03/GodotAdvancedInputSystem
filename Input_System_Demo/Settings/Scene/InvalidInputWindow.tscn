@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://ytvrts43vx2q"]
+
+[sub_resource type="GDScript" id="GDScript_l53p2"]
+resource_name = "Show And Gone"
+script/source = "extends Panel
+
+signal destroyed
+
+@export var display: Label
+@onready var panel : Panel = $CenterContainer/Panel
+
+func set_text(text: String)->void:
+	display.text = text
+
+
+
+
+func _ready() -> void:
+	panel.custom_minimum_size.x = display.size.x + 60
+
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			destroyed.emit()
+			queue_free()
+	if event is InputEventJoypadButton and event.is_pressed():
+		destroyed.emit()
+		queue_free()
+"
+
+[node name="Warning window" type="Panel" unique_id=1275860068 node_paths=PackedStringArray("display")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_l53p2")
+display = NodePath("CenterContainer/Label")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1575962908]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer" unique_id=1112921719]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer" unique_id=1598793944]
+layout_mode = 2
+text = "Invalid Input..."

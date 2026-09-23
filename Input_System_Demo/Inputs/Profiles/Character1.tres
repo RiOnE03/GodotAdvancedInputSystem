@@ -1,0 +1,131 @@
+[gd_resource type="Resource" script_class="InputProfile" format=3 uid="uid://dnifxtfnc8cq2"]
+
+[ext_resource type="Script" uid="uid://cgpcdwib751sj" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputAction.gd" id="1_1vdmd"]
+[ext_resource type="Resource" uid="uid://bwqn1dysv6jxg" path="res://Input_System_Demo/Inputs/Actions/Player1/Locomotion_p1.tres" id="2_8vwtp"]
+[ext_resource type="Script" uid="uid://6vojp5dtpfux" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputBindings.gd" id="2_pi382"]
+[ext_resource type="Resource" uid="uid://3rnfq4j4yi22" path="res://Input_System_Demo/Inputs/Actions/Player1/Jump_p1.tres" id="3_0lfx6"]
+[ext_resource type="Script" uid="uid://dvvuv8vjwq2un" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputProfile.gd" id="3_x2j4m"]
+[ext_resource type="Resource" uid="uid://du8ybcdwjvef5" path="res://Input_System_Demo/Inputs/Actions/Player1/Trigger1_p1.tres" id="4_7c143"]
+[ext_resource type="Resource" uid="uid://bvb8q4c4vnp2e" path="res://Input_System_Demo/Inputs/Actions/Player1/Trigger2_p1.tres" id="5_8wq73"]
+[ext_resource type="Script" uid="uid://dkmna2bokglpq" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputMetadataAndModifiers.gd" id="7_664dg"]
+[ext_resource type="Script" uid="uid://cd4cl4fw0l8ru" path="res://addons/GodotAdvancedInputSystem/InputProvider/Keyboard/KeyboardMetadata.gd" id="8_sbole"]
+[ext_resource type="Script" uid="uid://dy6uaadh5lwj7" path="res://addons/GodotAdvancedInputSystem/InputModifier/Base script/InputModifier.gd" id="9_ahwcr"]
+[ext_resource type="Script" uid="uid://d056csp76ma5y" path="res://addons/GodotAdvancedInputSystem/InputModifier/NegateModifier.gd" id="10_jokwp"]
+[ext_resource type="Script" uid="uid://fc1agntba5d3" path="res://addons/GodotAdvancedInputSystem/InputProvider/GamepadAxis/GamepadAxisMetadata.gd" id="11_sgdru"]
+[ext_resource type="Script" uid="uid://pu6uu11x8wox" path="res://addons/GodotAdvancedInputSystem/InputProvider/GamepadButton/GamepadButtonMetadata.gd" id="12_lrtxk"]
+[ext_resource type="Script" uid="uid://didok5xktwip5" path="res://addons/GodotAdvancedInputSystem/InputProvider/MouseButton/MouseButtonMetadata.gd" id="13_wpffq"]
+
+[sub_resource type="Resource" id="Resource_1m6wj"]
+script = ExtResource("8_sbole")
+physical_keycode = 68
+InputName = "D"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_7ae0y"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_1m6wj")
+
+[sub_resource type="Resource" id="Resource_c1hja"]
+script = ExtResource("8_sbole")
+physical_keycode = 65
+InputName = "A"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_5kl8c"]
+script = ExtResource("10_jokwp")
+metadata/_custom_type_script = "uid://d056csp76ma5y"
+
+[sub_resource type="Resource" id="Resource_770b4"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_c1hja")
+modifiers = Array[ExtResource("9_ahwcr")]([SubResource("Resource_5kl8c")])
+
+[sub_resource type="Resource" id="Resource_8vwtp"]
+script = ExtResource("11_sgdru")
+InputName = "Left Stick Horizontal"
+CategoryName = &"Gamepad Axis"
+
+[sub_resource type="Resource" id="Resource_kmgph"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_8vwtp")
+
+[sub_resource type="Resource" id="Resource_ym75x"]
+script = ExtResource("2_pi382")
+_bindings = Array[ExtResource("7_664dg")]([SubResource("Resource_7ae0y"), SubResource("Resource_770b4"), SubResource("Resource_kmgph")])
+
+[sub_resource type="Resource" id="Resource_np06r"]
+script = ExtResource("8_sbole")
+physical_keycode = 32
+InputName = "Space"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_s8oky"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_np06r")
+
+[sub_resource type="Resource" id="Resource_0lfx6"]
+script = ExtResource("12_lrtxk")
+InputName = "Button Bottom"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_6wroj"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_0lfx6")
+
+[sub_resource type="Resource" id="Resource_hlvp6"]
+script = ExtResource("2_pi382")
+_bindings = Array[ExtResource("7_664dg")]([SubResource("Resource_s8oky"), SubResource("Resource_6wroj")])
+
+[sub_resource type="Resource" id="Resource_7c143"]
+script = ExtResource("13_wpffq")
+button_index = 1
+InputName = "Left Mouse Button (LMB)"
+CategoryName = &"Mouse Button"
+
+[sub_resource type="Resource" id="Resource_aypfk"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_7c143")
+
+[sub_resource type="Resource" id="Resource_8wq73"]
+script = ExtResource("12_lrtxk")
+button_index = 9
+InputName = "Left Bumper (LB / L1)"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_ttsya"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_8wq73")
+
+[sub_resource type="Resource" id="Resource_48ft4"]
+script = ExtResource("2_pi382")
+_bindings = Array[ExtResource("7_664dg")]([SubResource("Resource_aypfk"), SubResource("Resource_ttsya")])
+
+[sub_resource type="Resource" id="Resource_y0noe"]
+script = ExtResource("13_wpffq")
+button_index = 1
+InputName = "Left Mouse Button (LMB)"
+CategoryName = &"Mouse Button"
+
+[sub_resource type="Resource" id="Resource_f7dvh"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_y0noe")
+
+[sub_resource type="Resource" id="Resource_664dg"]
+script = ExtResource("12_lrtxk")
+button_index = 10
+InputName = "Right Bumper (RB / R1)"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_a7shk"]
+script = ExtResource("7_664dg")
+binded_input = SubResource("Resource_664dg")
+
+[sub_resource type="Resource" id="Resource_brid8"]
+script = ExtResource("2_pi382")
+_bindings = Array[ExtResource("7_664dg")]([SubResource("Resource_f7dvh"), SubResource("Resource_a7shk")])
+
+[resource]
+script = ExtResource("3_x2j4m")
+_action_list = Array[ExtResource("1_1vdmd")]([ExtResource("2_8vwtp"), ExtResource("3_0lfx6"), ExtResource("4_7c143"), ExtResource("5_8wq73")])
+_bindings_list = Array[ExtResource("2_pi382")]([SubResource("Resource_ym75x"), SubResource("Resource_hlvp6"), SubResource("Resource_48ft4"), SubResource("Resource_brid8")])
+metadata/_custom_type_script = "uid://dvvuv8vjwq2un"

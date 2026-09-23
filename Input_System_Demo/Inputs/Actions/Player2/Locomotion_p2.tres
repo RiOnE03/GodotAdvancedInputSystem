@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://c56b1dfifq0pj"]
+
+[ext_resource type="Script" uid="uid://dy6uaadh5lwj7" path="res://addons/GodotAdvancedInputSystem/InputModifier/Base script/InputModifier.gd" id="1_6aslr"]
+[ext_resource type="Script" uid="uid://cgpcdwib751sj" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputAction.gd" id="3_byynp"]
+
+[resource]
+script = ExtResource("3_byynp")
+value_type = 1
+metadata/_custom_type_script = "uid://cgpcdwib751sj"

@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://qb2jslnpxgdn"]
+
+[ext_resource type="Texture2D" uid="uid://bmuelspgqyqyg" path="res://Input_System_Demo/Settings/Input_to_Icons/Icon Sprites/keyboard-&-mouse_sheet_default.png" id="1_qu0l8"]
+[ext_resource type="Texture2D" uid="uid://bitfcowrkbphn" path="res://Input_System_Demo/Settings/Input_to_Icons/Icon Sprites/xbox-series_sheet_default.png" id="2_idn46"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj4c8"]
+atlas = ExtResource("1_qu0l8")
+region = Rect2(0, 960, 64, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ib8a0"]
+atlas = ExtResource("2_idn46")
+region = Rect2(192, 576, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj4c8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ib8a0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]

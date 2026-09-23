@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://daieftii3vj4a"]
+
+[ext_resource type="Script" uid="uid://ktk5iiwum6tq" path="res://addons/GodotAdvancedInputSystem/InputProfileUI/Script/selectable_row.gd" id="1_aq8ib"]
+[ext_resource type="Theme" uid="uid://dp01ra0eadmg1" path="res://addons/GodotAdvancedInputSystem/Theme/UI_theme.tres" id="1_enbiu"]
+
+[sub_resource type="DPITexture" id="DPITexture_p5n4j"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#fff\" fill-opacity=\".75\" d=\"m1 3 2-2 5 5 5-5 2 2-5 5 5 5-2 2-5-5-5 5-2-2 5-5z\"/></svg>
+"
+
+[node name="PanelContainer" type="PanelContainer" unique_id=414473540 node_paths=PackedStringArray("resource_picker")]
+offset_right = 1152.0
+offset_bottom = 31.0
+theme = ExtResource("1_enbiu")
+script = ExtResource("1_aq8ib")
+resource_picker = NodePath("MarginContainer/Header/ActionPicker")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=659230654]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer" unique_id=1413723757]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="ActionPicker" type="EditorResourcePicker" parent="MarginContainer/Header" unique_id=1764141913]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+base_type = "InputAction"
+
+[node name="Spacer" type="Control" parent="MarginContainer/Header" unique_id=397821091]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DeleteBtn" type="Button" parent="MarginContainer/Header" unique_id=1701940053]
+layout_mode = 2
+mouse_filter = 1
+icon = SubResource("DPITexture_p5n4j")
+flat = true
+
+[node name="ExtraSpace" type="Control" parent="MarginContainer/Header" unique_id=28950919]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+mouse_filter = 2

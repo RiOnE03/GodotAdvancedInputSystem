@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bbtisnvc2ixyn"]
+
+[ext_resource type="Script" uid="uid://b7ilgfe2c3tib" path="res://Input_System_Demo/Settings/Script/input_displayer_row.gd" id="1_w8g6d"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=608977745]
+offset_right = 13.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+script = ExtResource("1_w8g6d")
+
+[node name="InputTitle" type="Label" parent="." unique_id=1903969960]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InputKey" type="Button" parent="." unique_id=177280036]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+icon_alignment = 1
+expand_icon = true

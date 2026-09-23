@@ -1,0 +1,9 @@
+
+* text=auto eol=lf
+
+/**                                         export-ignore
+/addons                                    !export-ignore
+/addons/GodotAdvancedInputSystem           !export-ignore
+/addons/GodotAdvancedInputSystem/**        !export-ignore
+/Input_System_Demo                         !export-ignore
+/Input_System_Demo/**                      !export-ignore

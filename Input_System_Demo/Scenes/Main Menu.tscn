@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://b21kjbi7r2km6"]
+
+[ext_resource type="PackedScene" uid="uid://dd2o823svkgh" path="res://Input_System_Demo/Settings/Scene/Key Remapping Window.tscn" id="1_qygjv"]
+
+[sub_resource type="GDScript" id="GDScript_mt2le"]
+resource_name = "UI"
+script/source = "extends CanvasLayer
+
+
+
+@onready var key_remap_ui: TabContainer = $KeyMapWindowHolder/TabContainer
+
+
+@onready var remap_holder: Panel = $KeyMapWindowHolder
+
+@export var focus_target: Button
+
+
+func _ready() -> void:
+	exit_settings()
+	key_remap_ui.cancel_requested.connect(exit_settings)
+
+func _on_settings_pressed() -> void:
+	remap_holder.process_mode = Node.PROCESS_MODE_INHERIT
+	remap_holder.show()
+	key_remap_ui._open()
+
+func exit_settings()->void:
+	remap_holder.process_mode = Node.PROCESS_MODE_DISABLED
+	remap_holder.hide()
+	_grab_target()
+
+func _on_key_map_window_holder_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+		exit_settings
+
+func _grab_target()->void:
+	if focus_target:
+			focus_target.grab_focus()
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if not get_viewport().gui_get_focus_owner():
+			_grab_target()
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+"
+
+[node name="MainMenu" type="CanvasLayer" unique_id=340184518 node_paths=PackedStringArray("focus_target")]
+script = SubResource("GDScript_mt2le")
+focus_target = NodePath("CenterContainer/VBoxContainer/Single")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=288529862]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=646430349]
+layout_mode = 2
+
+[node name="Single" type="Button" parent="CenterContainer/VBoxContainer" unique_id=387360179]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Single Player Testing"
+
+[node name="Local Coop" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1041888941]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Local Co-op Testing"
+
+[node name="Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=791609971]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Key Remap"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1528724271]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[node name="KeyMapWindowHolder" type="Panel" parent="." unique_id=1169572161]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" parent="KeyMapWindowHolder" unique_id=1149719434 instance=ExtResource("1_qygjv")]
+layout_mode = 1
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="gui_input" from="KeyMapWindowHolder" to="." method="_on_key_map_window_holder_gui_input"]

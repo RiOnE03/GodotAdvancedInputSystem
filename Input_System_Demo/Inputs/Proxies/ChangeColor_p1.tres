@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ConcurrentProxy" format=3 uid="uid://cdjqitubpy21g"]
+
+[ext_resource type="Script" uid="uid://cgpcdwib751sj" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputAction.gd" id="1_tbgut"]
+[ext_resource type="Resource" uid="uid://du8ybcdwjvef5" path="res://Input_System_Demo/Inputs/Actions/Player1/Trigger1_p1.tres" id="2_34d1l"]
+[ext_resource type="Resource" uid="uid://bvb8q4c4vnp2e" path="res://Input_System_Demo/Inputs/Actions/Player1/Trigger2_p1.tres" id="3_v7bhf"]
+[ext_resource type="Script" uid="uid://cgiyf6xn4i6pc" path="res://addons/GodotAdvancedInputSystem/InputActionProxy/ConcurrentProxy.gd" id="4_34a3h"]
+
+[resource]
+script = ExtResource("4_34a3h")
+proxy_of_actions = Array[ExtResource("1_tbgut")]([ExtResource("2_34d1l"), ExtResource("3_v7bhf")])
+metadata/_custom_type_script = "uid://cgiyf6xn4i6pc"

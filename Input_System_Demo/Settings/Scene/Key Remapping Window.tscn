@@ -1,0 +1,226 @@
+[gd_scene format=3 uid="uid://dd2o823svkgh"]
+
+[ext_resource type="Script" uid="uid://bn6shpxlutdke" path="res://Input_System_Demo/Settings/Script/Panel_switcher.gd" id="1_q7s38"]
+[ext_resource type="Script" uid="uid://ywhqb2kbo11e" path="res://Input_System_Demo/Settings/Script/Key_remapping_Window.gd" id="2_4veem"]
+[ext_resource type="Script" uid="uid://dvvuv8vjwq2un" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputProfile.gd" id="2_lnmqs"]
+[ext_resource type="PackedScene" uid="uid://bbtisnvc2ixyn" path="res://Input_System_Demo/Settings/Scene/InputDisplayerRow.tscn" id="3_6x6rf"]
+[ext_resource type="Resource" uid="uid://dnifxtfnc8cq2" path="res://Input_System_Demo/Inputs/Profiles/Character1.tres" id="3_r1vlp"]
+[ext_resource type="Script" uid="uid://cd4cl4fw0l8ru" path="res://addons/GodotAdvancedInputSystem/InputProvider/Keyboard/KeyboardMetadata.gd" id="4_ajef0"]
+[ext_resource type="Resource" uid="uid://bg7hx2elxc70f" path="res://Input_System_Demo/Inputs/Profiles/Character2.tres" id="4_m8qv2"]
+[ext_resource type="Script" uid="uid://didok5xktwip5" path="res://addons/GodotAdvancedInputSystem/InputProvider/MouseButton/MouseButtonMetadata.gd" id="5_qbbtp"]
+[ext_resource type="Script" uid="uid://fc1agntba5d3" path="res://addons/GodotAdvancedInputSystem/InputProvider/GamepadAxis/GamepadAxisMetadata.gd" id="6_3mpiv"]
+[ext_resource type="Script" uid="uid://pu6uu11x8wox" path="res://addons/GodotAdvancedInputSystem/InputProvider/GamepadButton/GamepadButtonMetadata.gd" id="7_agbvu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c88ga"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 2
+
+[sub_resource type="Resource" id="Resource_aokb1"]
+script = ExtResource("4_ajef0")
+physical_keycode = 65
+InputName = "A"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_agbvu"]
+script = ExtResource("4_ajef0")
+physical_keycode = 68
+InputName = "D"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_cncaf"]
+script = ExtResource("4_ajef0")
+physical_keycode = 32
+InputName = "Space"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_ulumj"]
+script = ExtResource("5_qbbtp")
+button_index = 1
+InputName = "Left Mouse Button (LMB)"
+CategoryName = &"Mouse Button"
+
+[sub_resource type="Resource" id="Resource_r1vlp"]
+script = ExtResource("6_3mpiv")
+InputName = "Left Stick Horizontal"
+CategoryName = &"Gamepad Axis"
+
+[sub_resource type="Resource" id="Resource_m8qv2"]
+script = ExtResource("7_agbvu")
+InputName = "Button Bottom"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_133qa"]
+script = ExtResource("7_agbvu")
+button_index = 9
+InputName = "Left Bumper (LB / L1)"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_h1xxg"]
+script = ExtResource("7_agbvu")
+button_index = 10
+InputName = "Right Bumper (RB / R1)"
+CategoryName = &"Gamepad Button"
+
+[node name="TabContainer" type="TabContainer" unique_id=1149719434]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -102.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
+tabs_visible = false
+script = ExtResource("1_q7s38")
+profiles = Array[ExtResource("2_lnmqs")]([ExtResource("3_r1vlp"), ExtResource("4_m8qv2")])
+
+[node name="Keyboard_Mouse" type="MarginContainer" parent="." unique_id=1975962289 node_paths=PackedStringArray("apply_changes", "reset")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+script = ExtResource("2_4veem")
+acceptible_input_types = Array[int]([0, 1])
+apply_changes = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/Apply Changes")
+reset = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/Reset")
+metadata/_tab_index = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Keyboard_Mouse" unique_id=1275158208]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Keyboard_Mouse/HBoxContainer" unique_id=2126311473]
+layout_mode = 2
+text = "Key Remapping:"
+
+[node name="HSeparator" type="HSeparator" parent="Keyboard_Mouse/HBoxContainer" unique_id=1880497024]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_c88ga")
+
+[node name="MarginContainer" type="MarginContainer" parent="Keyboard_Mouse/HBoxContainer" unique_id=1928299660]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Keyboard_Mouse/HBoxContainer/MarginContainer" unique_id=1002261184]
+layout_mode = 2
+
+[node name="Left Motion" parent="Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer" unique_id=874049727 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Left Motion"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_aokb1")
+
+[node name="Right Motion" parent="Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer" unique_id=151314182 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Right Motion"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_agbvu")
+
+[node name="Jump" parent="Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer" unique_id=525087712 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Jump"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_cncaf")
+
+[node name="Change Color" parent="Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer" unique_id=608977745 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Change Color"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_ulumj")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Keyboard_Mouse/HBoxContainer" unique_id=65636513]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Keyboard_Mouse/HBoxContainer/MarginContainer2" unique_id=866490132]
+layout_mode = 2
+
+[node name="Apply Changes" type="Button" parent="Keyboard_Mouse/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=135276878]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Apply Changes"
+
+[node name="Reset" type="Button" parent="Keyboard_Mouse/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=465732104]
+layout_mode = 2
+text = "Reset to default"
+
+[node name="Controller" type="MarginContainer" parent="." unique_id=1563852399 node_paths=PackedStringArray("apply_changes", "reset", "focus")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+script = ExtResource("2_4veem")
+acceptible_input_types = Array[int]([2])
+apply_changes = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/Apply Changes")
+reset = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/Reset")
+focus = NodePath("HBoxContainer/MarginContainer/HBoxContainer/Movement")
+metadata/_tab_index = 1
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Controller" unique_id=1202632931]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Controller/HBoxContainer" unique_id=509021588]
+layout_mode = 2
+text = "Controller Remapping:"
+
+[node name="HSeparator" type="HSeparator" parent="Controller/HBoxContainer" unique_id=1346397929]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_c88ga")
+
+[node name="MarginContainer" type="MarginContainer" parent="Controller/HBoxContainer" unique_id=1483135867]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Controller/HBoxContainer/MarginContainer" unique_id=1706702275]
+layout_mode = 2
+
+[node name="Movement" parent="Controller/HBoxContainer/MarginContainer/HBoxContainer" unique_id=2139898446 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Left-Right Motion"
+acceptable_inputs_domain = 2
+default_metadata = SubResource("Resource_r1vlp")
+
+[node name="Jump" parent="Controller/HBoxContainer/MarginContainer/HBoxContainer" unique_id=1463715338 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Jump"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_m8qv2")
+
+[node name="Change Color1" parent="Controller/HBoxContainer/MarginContainer/HBoxContainer" unique_id=389283878 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Change Color Trigger 1"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_133qa")
+
+[node name="Change Color2" parent="Controller/HBoxContainer/MarginContainer/HBoxContainer" unique_id=847352235 instance=ExtResource("3_6x6rf")]
+layout_mode = 2
+input_name = "Change Color Trigger 2"
+acceptable_inputs_domain = 1
+default_metadata = SubResource("Resource_h1xxg")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Controller/HBoxContainer" unique_id=1770274749]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Controller/HBoxContainer/MarginContainer2" unique_id=1555019002]
+layout_mode = 2
+
+[node name="Apply Changes" type="Button" parent="Controller/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=1565026460]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Apply Changes"
+
+[node name="Reset" type="Button" parent="Controller/HBoxContainer/MarginContainer2/HBoxContainer" unique_id=26326527]
+layout_mode = 2
+text = "Reset to default"

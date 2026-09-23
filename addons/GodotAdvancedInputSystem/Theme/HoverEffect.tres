@@ -1,0 +1,12 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://b1f80hhchsk4l"]
+
+[ext_resource type="Gradient" uid="uid://bb67a7mxm7swf" path="res://addons/GodotAdvancedInputSystem/Theme/ShadeEffect.tres" id="1_pvjjd"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r17gk"]
+gradient = ExtResource("1_pvjjd")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[resource]
+content_margin_bottom = 4.0
+texture = SubResource("GradientTexture2D_r17gk")

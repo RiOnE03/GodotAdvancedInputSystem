@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://be6virvv3pf0d"]
+
+[ext_resource type="Texture2D" uid="uid://dgsos56fpxfk1" path="res://icon.svg" id="1_rmpa4"]
+[ext_resource type="PackedScene" uid="uid://csx0f1fnwrsds" path="res://Input_System_Demo/Scenes/Tiles.tscn" id="2_gmk2a"]
+[ext_resource type="PackedScene" uid="uid://bx4jwatvu3vgn" path="res://Input_System_Demo/Scenes/PlayerCharacter.tscn" id="3_mu582"]
+[ext_resource type="Resource" uid="uid://dnifxtfnc8cq2" path="res://Input_System_Demo/Inputs/Profiles/Character1.tres" id="4_7x0o7"]
+[ext_resource type="Resource" uid="uid://bwqn1dysv6jxg" path="res://Input_System_Demo/Inputs/Actions/Player1/Locomotion_p1.tres" id="5_ch6kc"]
+[ext_resource type="Resource" uid="uid://3rnfq4j4yi22" path="res://Input_System_Demo/Inputs/Actions/Player1/Jump_p1.tres" id="6_nspna"]
+[ext_resource type="Resource" uid="uid://cdjqitubpy21g" path="res://Input_System_Demo/Inputs/Proxies/ChangeColor_p1.tres" id="7_rxvdh"]
+[ext_resource type="Resource" uid="uid://bg7hx2elxc70f" path="res://Input_System_Demo/Inputs/Profiles/Character2.tres" id="8_4rw5m"]
+[ext_resource type="Resource" uid="uid://c56b1dfifq0pj" path="res://Input_System_Demo/Inputs/Actions/Player2/Locomotion_p2.tres" id="9_rcbuy"]
+[ext_resource type="Resource" uid="uid://b3cfm5s2tcuk7" path="res://Input_System_Demo/Inputs/Actions/Player2/Jump_p2.tres" id="10_ibs1m"]
+[ext_resource type="Resource" uid="uid://bd1jvplupgi44" path="res://Input_System_Demo/Inputs/Proxies/ChangeColor_p2.tres" id="11_uhpsa"]
+
+[sub_resource type="GDScript" id="GDScript_tsby5"]
+resource_name = "map the boundary"
+script/source = "extends Node2D
+
+@export var player1_character: CharacterBody2D
+@export var player2_character: CharacterBody2D
+
+func _ready() -> void:
+	var main_window = get_tree().root
+
+	main_window.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+	main_window.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+
+func start(categories: Array[int])->void:
+	if categories.is_empty():
+		player2_character.queue_free()
+		player1_character.start(0)
+	else:
+		player1_character.start(categories[0])
+		player2_character.start(categories[1])
+		InputManager.controller_mode = InputManager.SPLIT_KEYBOARD
+	pass
+"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mt2le"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c88ga"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mt2le"]
+size = Vector2(1920, 128)
+
+[node name="TestingWorld" type="Node2D" unique_id=76008918 node_paths=PackedStringArray("player1_character", "player2_character")]
+scale = Vector2(0.6, 0.6)
+script = SubResource("GDScript_tsby5")
+player1_character = NodePath("PlayerCharacter")
+player2_character = NodePath("PlayerCharacter2")
+
+[node name="WorldBoundaries" type="StaticBody2D" parent="." unique_id=2035738366]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries" unique_id=1749761047]
+shape = SubResource("WorldBoundaryShape2D_mt2le")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundaries" unique_id=1935847819]
+position = Vector2(1920, 0)
+shape = SubResource("WorldBoundaryShape2D_c88ga")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1998556797]
+position = Vector2(960, 1080)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=449583300]
+shape = SubResource("RectangleShape2D_mt2le")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor" unique_id=523698330]
+texture_repeat = 2
+position = Vector2(-3, 0)
+texture = ExtResource("1_rmpa4")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 128)
+
+[node name="Tiles" parent="." unique_id=1313919193 instance=ExtResource("2_gmk2a")]
+position = Vector2(1268, 832)
+
+[node name="Tiles2" parent="." unique_id=82550293 instance=ExtResource("2_gmk2a")]
+position = Vector2(505, 832)
+
+[node name="Tiles3" parent="." unique_id=1852120854 instance=ExtResource("2_gmk2a")]
+position = Vector2(862, 633)
+
+[node name="Tiles4" parent="." unique_id=2127541341 instance=ExtResource("2_gmk2a")]
+position = Vector2(1508, 536)
+
+[node name="Tiles5" parent="." unique_id=1712355549 instance=ExtResource("2_gmk2a")]
+position = Vector2(331, 429)
+
+[node name="PlayerCharacter" parent="." unique_id=1883634487 instance=ExtResource("3_mu582")]
+position = Vector2(150, 886)
+profile = ExtResource("4_7x0o7")
+movement = ExtResource("5_ch6kc")
+jump_action = ExtResource("6_nspna")
+trigger = ExtResource("7_rxvdh")
+
+[node name="Name" type="Label" parent="PlayerCharacter" unique_id=874374368]
+offset_left = -58.333332
+offset_top = -156.00006
+offset_right = 57.666668
+offset_bottom = -69.00006
+theme_override_font_sizes/font_size = 30
+text = "Player 1
+     ▼"
+
+[node name="PlayerCharacter2" parent="." unique_id=1593816704 instance=ExtResource("3_mu582")]
+position = Vector2(1648, 896)
+profile = ExtResource("8_4rw5m")
+movement = ExtResource("9_rcbuy")
+jump_action = ExtResource("10_ibs1m")
+trigger = ExtResource("11_uhpsa")
+
+[node name="Name" type="Label" parent="PlayerCharacter2" unique_id=632868880]
+offset_left = -58.333332
+offset_top = -156.00006
+offset_right = 57.666668
+offset_bottom = -69.00006
+theme_override_font_sizes/font_size = 30
+text = "Player 2
+     ▼"

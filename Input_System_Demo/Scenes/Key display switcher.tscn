@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bpub77uvgksky"]
+
+[sub_resource type="GDScript" id="GDScript_me0ck"]
+resource_name = "Key display Switcher"
+script/source = "extends Control
+
+func _ready() -> void:
+	get_child(0).visible = false
+	get_child(1).visible = false
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouse or event is InputEventKey:
+		if get_child(0).visible == false:
+			get_child(0).visible = true
+			get_child(1).visible = false
+	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if get_child(1).visible == false:
+			get_child(1).visible = true
+			get_child(0).visible = false
+"
+
+[node name="KeyDisplaySwitcher" type="Label" unique_id=1852699598]
+offset_right = 1.0
+offset_bottom = 23.0
+script = SubResource("GDScript_me0ck")

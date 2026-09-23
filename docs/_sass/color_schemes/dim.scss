@@ -1,0 +1,20 @@
+@import "./color_schemes/dark";
+
+// Soft neutral "dim" background instead of pitch black
+$body-background-color: #22272e;
+$sidebar-color: #1c2128;
+$search-background-color: #1c2128;
+
+// Softer readable text
+$body-text-color: #adbac7;
+$body-heading-color: #cdd9e5;
+
+// Code blocks & inline code styling
+$code-background-color: #2d333b;
+
+// Godot engine blue accents
+$link-color: #478cbf;
+$btn-primary-color: #478cbf;
+
+// Subtle borders
+$border-color: #373e47;

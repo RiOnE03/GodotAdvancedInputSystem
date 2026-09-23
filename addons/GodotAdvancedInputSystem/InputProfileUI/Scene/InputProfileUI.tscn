@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://b1tdfselcbnxl"]
+
+[ext_resource type="Theme" uid="uid://dp01ra0eadmg1" path="res://addons/GodotAdvancedInputSystem/Theme/UI_theme.tres" id="1_kl4bk"]
+[ext_resource type="Script" uid="uid://b7fp7cpxbg2f4" path="res://addons/GodotAdvancedInputSystem/InputProfileUI/Script/InputActionBindingProfile.gd" id="1_p72lk"]
+[ext_resource type="Script" uid="uid://c32eb6poe7t44" path="res://addons/GodotAdvancedInputSystem/InputProfileUI/Script/BindingListSection.gd" id="2_087dp"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_p72lk"]
+color = Color(1.2749847, 1.2749847, 1.2749847, 0.4627451)
+grow_begin = -10.0
+grow_end = -10.0
+
+[sub_resource type="DPITexture" id="DPITexture_p72lk"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1v6h-6v2h6v6h2v-6h6v-2h-6v-6z\"/></svg>
+"
+base_scale = 1.25
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
+}
+
+[node name="Root" type="Control" unique_id=1024517930]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_kl4bk")
+script = ExtResource("1_p72lk")
+
+[node name="Panel" type="Panel" parent="." unique_id=429887455]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="VBoxContainer" parent="." unique_id=12526950]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopRow" type="HBoxContainer" parent="Header" unique_id=1817113346]
+layout_mode = 2
+
+[node name="Title" type="HBoxContainer" parent="Header/TopRow" unique_id=1207813225]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Spacer1" type="Control" parent="Header/TopRow/Title" unique_id=1629943542]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+
+[node name="StaticTitle" type="Label" parent="Header/TopRow/Title" unique_id=495464608]
+layout_mode = 2
+text = "Profile: "
+
+[node name="ProfileName" type="Label" parent="Header/TopRow/Title" unique_id=1230418174]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Header/TopRow" unique_id=31300798]
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_text = "Defines whether the remaining inputs should be passed down the profile stack or not.
+
+If true, the profile evaluation will be considered completed for that frame and the profiles lower in the profile_stack won't receive any inputs.
+
+This property is ignored in the absolute profiles evaluations."
+disabled = true
+text = "Block Input Propagation"
+flat = true
+
+[node name="ApplyChangesBtn" type="Button" parent="Header/TopRow" unique_id=501785832]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"ApplySettingsButton"
+text = " Apply Changes "
+
+[node name="Spacer1" type="Control" parent="Header/TopRow" unique_id=188183416]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Header" unique_id=2045006660]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_p72lk")
+
+[node name="MarginContainer" type="MarginContainer" parent="Header" unique_id=1492258341]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Header/MarginContainer" unique_id=745491987]
+layout_mode = 2
+split_offsets = PackedInt32Array(6)
+split_offset = 6
+
+[node name="LeftScroll" type="ScrollContainer" parent="Header/MarginContainer/HSplitContainer" unique_id=443781133]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Left Panel" type="VBoxContainer" parent="Header/MarginContainer/HSplitContainer/LeftScroll" unique_id=651624521]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftHeader" type="HBoxContainer" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel" unique_id=1682641961]
+layout_mode = 2
+
+[node name="InputActions" type="Label" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel/LeftHeader" unique_id=927885049]
+layout_mode = 2
+text = "   Input Actions"
+
+[node name="Spacer" type="Control" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel/LeftHeader" unique_id=240599872]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="AddButton" type="Button" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel/LeftHeader" unique_id=905127438]
+layout_mode = 2
+tooltip_text = "Add new Input Actions"
+disabled = true
+icon = SubResource("DPITexture_p72lk")
+flat = true
+
+[node name="HSeparator" type="HSeparator" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel" unique_id=1923640594]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_p72lk")
+
+[node name="ContentMargin" type="MarginContainer" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel" unique_id=2030718534]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+
+[node name="ContentList" type="VBoxContainer" parent="Header/MarginContainer/HSplitContainer/LeftScroll/Left Panel/ContentMargin" unique_id=1085909019]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RightScroll" type="ScrollContainer" parent="Header/MarginContainer/HSplitContainer" unique_id=874965347]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("2_087dp")
+
+[node name="RightPanel" type="VBoxContainer" parent="Header/MarginContainer/HSplitContainer/RightScroll" unique_id=1877669859]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightHeader" type="HBoxContainer" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel" unique_id=1501981522]
+layout_mode = 2
+
+[node name="Bindings" type="Label" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel/RightHeader" unique_id=1875509303]
+layout_mode = 2
+tooltip_text = "This list of hardware inputs are always extracted as Vector2 and processed top to bottom and in the end accumulated into a single Vector2.
+
+The inputs that don't natively generate a vector2 are instead added as (value , 0)"
+mouse_filter = 0
+text = "   Input Bindings:"
+
+[node name="Spacer" type="Control" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel/RightHeader" unique_id=441175451]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Add Bindings" type="Button" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel/RightHeader" unique_id=1003098038]
+layout_mode = 2
+tooltip_text = "\"Add Bindings for the Input Action\""
+disabled = true
+icon = SubResource("DPITexture_p72lk")
+flat = true
+
+[node name="HSeparator" type="HSeparator" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel" unique_id=492938863]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_p72lk")
+
+[node name="Scroll Container" type="MarginContainer" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel" unique_id=1790700204]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+
+[node name="ContentList" type="VBoxContainer" parent="Header/MarginContainer/HSplitContainer/RightScroll/RightPanel/Scroll Container" unique_id=122053619]
+layout_mode = 2

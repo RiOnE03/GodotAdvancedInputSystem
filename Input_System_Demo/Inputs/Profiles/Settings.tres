@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="InputProfile" format=3 uid="uid://cyol1dxs266ru"]
+
+[ext_resource type="Script" uid="uid://cgpcdwib751sj" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputAction.gd" id="1_m2ea5"]
+[ext_resource type="Script" uid="uid://6vojp5dtpfux" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputBindings.gd" id="2_csf6u"]
+[ext_resource type="Resource" uid="uid://b6xmu61tdu087" path="res://Input_System_Demo/Inputs/Actions/Settings/OpenMainMenu.tres" id="2_v6sqh"]
+[ext_resource type="Script" uid="uid://dvvuv8vjwq2un" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputProfile.gd" id="3_7rtyd"]
+[ext_resource type="Resource" uid="uid://ct1p3wsea5y7r" path="res://Input_System_Demo/Inputs/Actions/Settings/Back.tres" id="3_pcmto"]
+[ext_resource type="Script" uid="uid://dkmna2bokglpq" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputMetadataAndModifiers.gd" id="5_v6sqh"]
+[ext_resource type="Script" uid="uid://dy6uaadh5lwj7" path="res://addons/GodotAdvancedInputSystem/InputModifier/Base script/InputModifier.gd" id="6_pcmto"]
+[ext_resource type="Script" uid="uid://cd4cl4fw0l8ru" path="res://addons/GodotAdvancedInputSystem/InputProvider/Keyboard/KeyboardMetadata.gd" id="6_v6sqh"]
+[ext_resource type="Script" uid="uid://pu6uu11x8wox" path="res://addons/GodotAdvancedInputSystem/InputProvider/GamepadButton/GamepadButtonMetadata.gd" id="8_pcmto"]
+
+[sub_resource type="Resource" id="Resource_4saen"]
+script = ExtResource("6_v6sqh")
+physical_keycode = 4194305
+InputName = "Escape"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_md6se"]
+script = ExtResource("5_v6sqh")
+binded_input = SubResource("Resource_4saen")
+
+[sub_resource type="Resource" id="Resource_gmqg3"]
+script = ExtResource("8_pcmto")
+button_index = 6
+InputName = "Start / Menu / +"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_8vyof"]
+script = ExtResource("5_v6sqh")
+binded_input = SubResource("Resource_gmqg3")
+
+[sub_resource type="Resource" id="Resource_ih2jn"]
+script = ExtResource("2_csf6u")
+_bindings = Array[ExtResource("5_v6sqh")]([SubResource("Resource_md6se"), SubResource("Resource_8vyof")])
+
+[sub_resource type="Resource" id="Resource_c8cm3"]
+script = ExtResource("6_v6sqh")
+physical_keycode = 4194305
+InputName = "Escape"
+CategoryName = &"Keyboard"
+
+[sub_resource type="Resource" id="Resource_sll1v"]
+script = ExtResource("5_v6sqh")
+binded_input = SubResource("Resource_c8cm3")
+
+[sub_resource type="Resource" id="Resource_v6sqh"]
+script = ExtResource("8_pcmto")
+button_index = 1
+InputName = "Button Right"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_kq7lx"]
+script = ExtResource("5_v6sqh")
+binded_input = SubResource("Resource_v6sqh")
+
+[sub_resource type="Resource" id="Resource_pcmto"]
+script = ExtResource("8_pcmto")
+button_index = 6
+InputName = "Start / Menu / +"
+CategoryName = &"Gamepad Button"
+
+[sub_resource type="Resource" id="Resource_jmnq2"]
+script = ExtResource("5_v6sqh")
+binded_input = SubResource("Resource_pcmto")
+
+[sub_resource type="Resource" id="Resource_2hjw8"]
+script = ExtResource("2_csf6u")
+_bindings = Array[ExtResource("5_v6sqh")]([SubResource("Resource_sll1v"), SubResource("Resource_kq7lx"), SubResource("Resource_jmnq2")])
+
+[resource]
+script = ExtResource("3_7rtyd")
+_action_list = Array[ExtResource("1_m2ea5")]([ExtResource("2_v6sqh"), ExtResource("3_pcmto")])
+_bindings_list = Array[ExtResource("2_csf6u")]([SubResource("Resource_ih2jn"), SubResource("Resource_2hjw8")])
+metadata/_custom_type_script = "uid://dvvuv8vjwq2un"

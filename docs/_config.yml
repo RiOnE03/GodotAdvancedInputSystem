@@ -1,0 +1,10 @@
+title: Godot Advanced Input System
+remote_theme: just-the-docs/just-the-docs
+
+plugins:
+  - jekyll-remote-theme
+
+# Enable dark mode
+color_scheme: dim
+
+search_enabled: true

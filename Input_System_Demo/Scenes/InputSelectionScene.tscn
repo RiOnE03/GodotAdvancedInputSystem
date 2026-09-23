@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://c8y58ebpdb5wx"]
+
+[ext_resource type="Texture2D" uid="uid://bitfcowrkbphn" path="res://Input_System_Demo/Settings/Input_to_Icons/Icon Sprites/xbox-series_sheet_default.png" id="1_qfe66"]
+[ext_resource type="Texture2D" uid="uid://bmuelspgqyqyg" path="res://Input_System_Demo/Settings/Input_to_Icons/Icon Sprites/keyboard-&-mouse_sheet_default.png" id="2_eokkq"]
+
+[sub_resource type="GDScript" id="GDScript_mt2le"]
+resource_name = "InputSourceSelector"
+script/source = "extends Control
+
+@onready var p1_input_source_image: TextureRect = $P1/DisplayerImage1
+@onready var p2_input_source_image: TextureRect = $P2/DisplayerImage2
+
+@export var controller: Texture2D
+@export var keyboard: Texture2D
+
+@onready var start_button : Button = $Start
+
+signal start(sources: Array[int])
+
+enum InputSources {
+	KEYBOARD,
+	CONTROLLER_1,
+	CONTROLLER_2
+}
+
+var input_sources: Array[int]
+
+func _ready() -> void:
+	start_button.hide()
+
+func _input(event: InputEvent) -> void:
+	if input_sources.size() == 2:
+		if start_button.visible == false:
+			start_button.show()
+		if get_viewport().gui_get_focus_owner() != start_button:
+			start_button.grab_focus()
+	if event is InputEventMouseButton or event is InputEventKey and event.is_released():
+		if not input_sources.has(InputSources.KEYBOARD):
+			if input_sources.size()==0:
+				p1_input_source_image.texture = keyboard
+			else:
+				p2_input_source_image.texture = keyboard
+			input_sources.append(InputSources.KEYBOARD)
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if not input_sources.has(event.device + 1):
+			if input_sources.size()==0:
+				p1_input_source_image.texture = controller
+			else:
+				p2_input_source_image.texture = controller
+			input_sources.append(event.device + 1)
+
+
+
+func _on_start_pressed() -> void:
+	start.emit(input_sources)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrmii"]
+atlas = ExtResource("1_qfe66")
+region = Rect2(189.25092, 574.0879, 69.872284, 63.861755)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n022l"]
+atlas = ExtResource("2_eokkq")
+region = Rect2(-2.1289978, 960.7384, 67.29482, 66.59387)
+
+[node name="InputSelectionScene" type="Control" unique_id=603112815]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_mt2le")
+controller = SubResource("AtlasTexture_nrmii")
+keyboard = SubResource("AtlasTexture_n022l")
+
+[node name="Display" type="Label" parent="." unique_id=1939286576]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 103.0
+offset_right = 101.0
+offset_bottom = 145.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Press any key"
+
+[node name="P1" type="Label" parent="." unique_id=246652459]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 103.0
+offset_top = -74.0
+offset_right = 199.0
+offset_bottom = -39.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "Player 1:"
+
+[node name="DisplayerImage1" type="TextureRect" parent="P1" unique_id=1140837489]
+layout_mode = 0
+offset_left = 125.0
+offset_top = -11.0
+offset_right = 165.0
+offset_bottom = 29.0
+
+[node name="P2" type="Label" parent="." unique_id=1035227440]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 105.0
+offset_top = 101.0
+offset_right = 201.0
+offset_bottom = 136.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "Player 2:"
+
+[node name="DisplayerImage2" type="TextureRect" parent="P2" unique_id=1643547640]
+layout_mode = 0
+offset_left = 130.0
+offset_top = -11.0
+offset_right = 170.0
+offset_bottom = 29.0
+
+[node name="Start" type="Button" parent="." unique_id=2142890842]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 279.0
+offset_top = -23.0
+offset_right = 424.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "   START   "
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]

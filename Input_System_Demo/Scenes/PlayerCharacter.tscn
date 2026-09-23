@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bx4jwatvu3vgn"]
+
+[ext_resource type="Texture2D" uid="uid://dgsos56fpxfk1" path="res://icon.svg" id="1_2p2d3"]
+
+[sub_resource type="GDScript" id="GDScript_mt2le"]
+resource_name = "PlayerCharacter"
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 450.0
+const JUMP_VELOCITY = -550.0
+
+@export var profile: InputProfile
+
+@export var movement: InputAction
+@export var jump_action: InputAction
+@export var trigger: InputActionProxy
+
+@onready var original_color: Color = $Sprite2D.modulate
+var new_color: Color = Color(\"d74200\")
+
+func start(category: int)->void:
+	InputManager.get_player_controller(category).push_profile(profile)
+	movement.action.connect(_direction)
+	jump_action.action.connect(_jump)
+	trigger.proxy_action.connect(_change_color)
+
+func _change_color(context: InputContext)->void:
+	if context.execution_state == InputContext.STARTED:
+		if $Sprite2D.modulate == original_color:
+			$Sprite2D.modulate = new_color
+		else:
+			$Sprite2D.modulate = original_color
+
+var direction : float
+
+func _direction(context: InputContext)->void:
+	direction = context.value
+
+func _jump(context: InputContext)->void:
+	if context.execution_state == InputContext.STARTED and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+func _physics_process(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mt2le"]
+size = Vector2(128, 128)
+
+[node name="PlayerCharacter" type="CharacterBody2D" unique_id=1883634487]
+script = SubResource("GDScript_mt2le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1795748385]
+shape = SubResource("RectangleShape2D_mt2le")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1752498120]
+texture = ExtResource("1_2p2d3")

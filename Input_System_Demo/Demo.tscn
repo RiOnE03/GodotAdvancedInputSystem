@@ -1,0 +1,297 @@
+[gd_scene format=3 uid="uid://csflq5sf6iins"]
+
+[ext_resource type="PackedScene" uid="uid://bpub77uvgksky" path="res://Input_System_Demo/Scenes/Key display switcher.tscn" id="1_cy3g7"]
+[ext_resource type="PackedScene" uid="uid://dd2o823svkgh" path="res://Input_System_Demo/Settings/Scene/Key Remapping Window.tscn" id="1_n0cf0"]
+[ext_resource type="PackedScene" uid="uid://be6virvv3pf0d" path="res://Input_System_Demo/Scenes/TestingWorld.tscn" id="2_cy3g7"]
+[ext_resource type="PackedScene" uid="uid://hwuclm68hdmv" path="res://Input_System_Demo/Scenes/Icon Displayer.tscn" id="2_lj2tj"]
+
+[sub_resource type="GDScript" id="GDScript_47hxf"]
+resource_name = "Orchestrator"
+script/source = "extends Node2D
+
+var local_coop_scene : = preload(\"res://Input_System_Demo/Scenes/InputSelectionScene.tscn\")
+var local_cpp_selector_ui: Control
+
+var active_testing_map :Node2D
+
+@onready var canvas: CanvasLayer = $MainMenu
+
+@onready var testing_world : Node2D = $TestingWorld
+@onready var main_menu_ui: CenterContainer = $MainMenu/CenterContainer
+
+@onready var key_dislpayer: Control = $\"MainMenu/Key Background\"
+
+func _on_single_pressed() -> void:
+	testing_world.start([] as Array[int])
+	testing_world.show()
+	main_menu_ui.queue_free()
+	canvas.set_openeable()
+	key_dislpayer.visible = true
+
+
+func _on_local_coop_pressed() -> void:
+	local_cpp_selector_ui= local_coop_scene.instantiate()
+	main_menu_ui.queue_free()
+	local_cpp_selector_ui.start.connect(_start_coop_scene)
+	canvas.add_child(local_cpp_selector_ui)
+
+
+func _start_coop_scene(players: Array[int])->void:
+	local_cpp_selector_ui.queue_free()
+	testing_world.start(players)
+	testing_world.show()
+	canvas.set_openeable()
+	key_dislpayer.visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_mt2le"]
+resource_name = "UI"
+script/source = "extends CanvasLayer
+
+
+
+@onready var key_remap_ui: TabContainer = $KeyMapWindowHolder/TabContainer
+
+
+@onready var remap_holder: Panel = $KeyMapWindowHolder
+
+@export var focus_target: Button
+
+var Settings_profile: InputProfile = preload(\"res://Input_System_Demo/Inputs/Profiles/Settings.tres\")
+var main_menu_toggle: FilterProxy = preload(\"res://Input_System_Demo/Inputs/Proxies/MainMenuToggle.tres\")
+
+var open: InputAction = preload(\"res://Input_System_Demo/Inputs/Actions/Settings/OpenMainMenu.tres\")
+var close: InputAction = preload(\"res://Input_System_Demo/Inputs/Actions/Settings/Back.tres\")
+
+var can_open: bool = false
+
+func _ready() -> void:
+	InputManager.get_player_controller(0).add_absolute_profile(Settings_profile) # Keyboard mouse
+	InputManager.get_player_controller(1).add_absolute_profile(Settings_profile) # controller 1
+	InputManager.get_player_controller(2).add_absolute_profile(Settings_profile) # controller 2
+	main_menu_toggle.proxy_action.connect(_toggle_settings)
+	exit_settings()
+
+func set_openeable()->void:
+	can_open = true
+	main_menu_toggle.filter_index = 0
+
+func _toggle_settings(context: InputContext)->void:
+	if context.execution_state == InputContext.ENDED:
+		if context.cached_actions[0] == open:
+			_on_settings_pressed()
+		elif context.cached_actions[0] == close:
+			exit_settings()
+
+
+func _on_settings_pressed() -> void:
+	InputManager.set_profile_stack_process_mode(false)
+	remap_holder.process_mode = Node.PROCESS_MODE_INHERIT
+	remap_holder.show()
+	key_remap_ui._open()
+	main_menu_toggle.filter_index = 1
+
+func exit_settings()->void:
+	InputManager.set_profile_stack_process_mode(true)
+	remap_holder.process_mode = Node.PROCESS_MODE_DISABLED
+	remap_holder.hide()
+	key_remap_ui.cancel_changes()
+	_grab_target()
+	if can_open:
+		main_menu_toggle.filter_index = 0
+
+func _on_key_map_window_holder_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+		exit_settings()
+
+func _grab_target()->void:
+	if focus_target:
+			focus_target.grab_focus()
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if not get_viewport().gui_get_focus_owner():
+			_grab_target()
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+"
+
+[node name="Orchestrator" type="Node2D" unique_id=42460985]
+script = SubResource("GDScript_47hxf")
+
+[node name="MainMenu" type="CanvasLayer" parent="." unique_id=340184518 node_paths=PackedStringArray("focus_target")]
+script = SubResource("GDScript_mt2le")
+focus_target = NodePath("CenterContainer/VBoxContainer/Single")
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenu" unique_id=288529862]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/CenterContainer" unique_id=646430349]
+layout_mode = 2
+
+[node name="Single" type="Button" parent="MainMenu/CenterContainer/VBoxContainer" unique_id=387360179]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Single Player Testing"
+
+[node name="Local Coop" type="Button" parent="MainMenu/CenterContainer/VBoxContainer" unique_id=1041888941]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Local Co-op Testing"
+
+[node name="Settings" type="Button" parent="MainMenu/CenterContainer/VBoxContainer" unique_id=791609971]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Key Remap"
+
+[node name="Quit" type="Button" parent="MainMenu/CenterContainer/VBoxContainer" unique_id=1528724271]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[node name="KeyMapWindowHolder" type="Panel" parent="MainMenu" unique_id=1169572161]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" parent="MainMenu/KeyMapWindowHolder" unique_id=1149719434 instance=ExtResource("1_n0cf0")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Key Background" type="Panel" parent="MainMenu" unique_id=2067891490]
+visible = false
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Movement" parent="MainMenu/Key Background" unique_id=1245786896 instance=ExtResource("1_cy3g7")]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 14.0
+offset_right = 222.0
+offset_bottom = 37.0
+text = "Movement"
+
+[node name="Keyboard" type="HBoxContainer" parent="MainMenu/Key Background/Movement" unique_id=1508349115]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 29.0
+offset_right = 100.0
+offset_bottom = 71.0
+
+[node name="Left" parent="MainMenu/Key Background/Movement/Keyboard" unique_id=2029955686 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 2
+copy = NodePath("../../../../KeyMapWindowHolder/TabContainer/Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer/Left Motion")
+change_signal = NodePath("../../../../KeyMapWindowHolder/TabContainer")
+
+[node name="+" type="Label" parent="MainMenu/Key Background/Movement/Keyboard" unique_id=161568086]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "+"
+
+[node name="Right" parent="MainMenu/Key Background/Movement/Keyboard" unique_id=1310834993 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 2
+copy = NodePath("../../../../KeyMapWindowHolder/TabContainer/Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer/Right Motion")
+change_signal = NodePath("../../../../KeyMapWindowHolder/TabContainer")
+
+[node name="Controller" parent="MainMenu/Key Background/Movement" unique_id=1866710480 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 27.0
+offset_right = 63.0
+offset_bottom = 67.0
+copy = NodePath("../../../KeyMapWindowHolder/TabContainer/Controller/HBoxContainer/MarginContainer/HBoxContainer/Movement")
+change_signal = NodePath("../../../KeyMapWindowHolder/TabContainer")
+
+[node name="Jump" parent="MainMenu/Key Background" unique_id=347117984 instance=ExtResource("1_cy3g7")]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 14.0
+offset_right = 577.0
+offset_bottom = 37.0
+text = "Jump"
+
+[node name="Keyboard" parent="MainMenu/Key Background/Jump" unique_id=1228174399 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 28.0
+offset_right = 37.0
+offset_bottom = 68.0
+copy = NodePath("../../../KeyMapWindowHolder/TabContainer/Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer/Jump")
+change_signal = NodePath("../../../KeyMapWindowHolder/TabContainer")
+
+[node name="Controller" parent="MainMenu/Key Background/Jump" unique_id=1600471163 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 0
+offset_top = 31.0
+offset_right = 40.0
+offset_bottom = 71.0
+copy = NodePath("../../../KeyMapWindowHolder/TabContainer/Controller/HBoxContainer/MarginContainer/HBoxContainer/Jump")
+change_signal = NodePath("../../../KeyMapWindowHolder/TabContainer")
+
+[node name="Change Color" parent="MainMenu/Key Background" unique_id=637443291 instance=ExtResource("1_cy3g7")]
+layout_mode = 0
+offset_left = 970.0
+offset_top = 14.0
+offset_right = 1074.0
+offset_bottom = 37.0
+text = "Change Color"
+
+[node name="Keyboard" parent="MainMenu/Key Background/Change Color" unique_id=189050412 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 31.0
+offset_right = 73.0
+offset_bottom = 71.0
+copy = NodePath("../../../KeyMapWindowHolder/TabContainer/Keyboard_Mouse/HBoxContainer/MarginContainer/HBoxContainer/Change Color")
+change_signal = NodePath("../../../KeyMapWindowHolder/TabContainer")
+
+[node name="Controller" type="HBoxContainer" parent="MainMenu/Key Background/Change Color" unique_id=1512822265]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 31.0
+offset_right = 106.0
+offset_bottom = 73.0
+
+[node name="Trigger1" parent="MainMenu/Key Background/Change Color/Controller" unique_id=1313670852 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 2
+copy = NodePath("../../../../KeyMapWindowHolder/TabContainer/Controller/HBoxContainer/MarginContainer/HBoxContainer/Change Color1")
+change_signal = NodePath("../../../../KeyMapWindowHolder/TabContainer")
+
+[node name="+" type="Label" parent="MainMenu/Key Background/Change Color/Controller" unique_id=922970222]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "+"
+
+[node name="Trigger2" parent="MainMenu/Key Background/Change Color/Controller" unique_id=255079563 node_paths=PackedStringArray("copy", "change_signal") instance=ExtResource("2_lj2tj")]
+layout_mode = 2
+copy = NodePath("../../../../KeyMapWindowHolder/TabContainer/Controller/HBoxContainer/MarginContainer/HBoxContainer/Change Color2")
+change_signal = NodePath("../../../../KeyMapWindowHolder/TabContainer")
+
+[node name="TestingWorld" parent="." unique_id=76008918 instance=ExtResource("2_cy3g7")]
+visible = false
+
+[connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer/Single" to="." method="_on_single_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer/Local Coop" to="." method="_on_local_coop_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer/Settings" to="MainMenu" method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/VBoxContainer/Quit" to="MainMenu" method="_on_quit_pressed"]
+[connection signal="gui_input" from="MainMenu/KeyMapWindowHolder" to="MainMenu" method="_on_key_map_window_holder_gui_input"]
+
+[editable path="MainMenu/KeyMapWindowHolder/TabContainer"]

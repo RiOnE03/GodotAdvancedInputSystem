@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://hwuclm68hdmv"]
+
+[sub_resource type="GDScript" id="GDScript_xorck"]
+resource_name = "Icon displayer"
+script/source = "extends Button
+
+
+@export var copy: HBoxContainer
+
+@export var change_signal: TabContainer
+
+var current_metadata: InputMetadata
+
+func _ready() -> void:
+	text = copy.input_button.text
+	icon = copy.input_button.icon
+	current_metadata = copy.default_metadata
+	change_signal.input_updated.connect(_metadata_changed)
+
+func _metadata_changed(old_input: InputMetadata, new_input: InputMetadata)->void:
+	if old_input.is_same_metadata(current_metadata):
+		text = copy.input_button.text
+		icon = copy.input_button.icon
+		current_metadata = new_input
+"
+
+[node name="IconDisplayer" type="Button" unique_id=2029955686]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 8.0
+offset_bottom = 8.0
+disabled = true
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = SubResource("GDScript_xorck")

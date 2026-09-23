@@ -1,0 +1,40 @@
+[gd_resource type="Theme" format=3 uid="uid://dp01ra0eadmg1"]
+
+[ext_resource type="StyleBox" uid="uid://b1f80hhchsk4l" path="res://addons/GodotAdvancedInputSystem/Theme/HoverEffect.tres" id="1_5fhrq"]
+[ext_resource type="StyleBox" uid="uid://c1ykdd5r77nwh" path="res://addons/GodotAdvancedInputSystem/Theme/SelectedEffect.tres" id="2_y0n4g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1uj61"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enbiu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt2le"]
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 0.78431374)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w87pc"]
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c88ga"]
+bg_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+ApplySettingsButton/base_type = &"Button"
+ApplySettingsButton/styles/hover = ExtResource("1_5fhrq")
+ApplySettingsButton/styles/normal = SubResource("StyleBoxEmpty_1uj61")
+ApplySettingsButton/styles/pressed = ExtResource("2_y0n4g")
+Button/styles/hover = SubResource("StyleBoxEmpty_enbiu")
+HoverEffect/base_type = &"PanelContainer"
+HoverEffect/styles/panel = ExtResource("1_5fhrq")
+Panel/styles/panel = SubResource("StyleBoxFlat_mt2le")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_w87pc")
+ScrollContainer/styles/panel = SubResource("StyleBoxFlat_c88ga")
+SelectedEffect/base_type = &"PanelContainer"
+SelectedEffect/styles/panel = ExtResource("2_y0n4g")

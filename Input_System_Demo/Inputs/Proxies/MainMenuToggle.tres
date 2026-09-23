@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="FilterProxy" format=3 uid="uid://126vakmwfcbi"]
+
+[ext_resource type="Script" uid="uid://cgpcdwib751sj" path="res://addons/GodotAdvancedInputSystem/Input Scripts/InputAction.gd" id="1_k6lie"]
+[ext_resource type="Script" uid="uid://c1dobbawkblji" path="res://addons/GodotAdvancedInputSystem/InputActionProxy/FilterProxy.gd" id="2_8qboi"]
+[ext_resource type="Resource" uid="uid://b6xmu61tdu087" path="res://Input_System_Demo/Inputs/Actions/Settings/OpenMainMenu.tres" id="2_q6jhh"]
+[ext_resource type="Resource" uid="uid://ct1p3wsea5y7r" path="res://Input_System_Demo/Inputs/Actions/Settings/Back.tres" id="3_551il"]
+
+[resource]
+script = ExtResource("2_8qboi")
+filter_index = 1
+proxy_of_actions = Array[ExtResource("1_k6lie")]([ExtResource("2_q6jhh"), ExtResource("3_551il")])
+metadata/_custom_type_script = "uid://c1dobbawkblji"
