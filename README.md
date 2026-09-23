@@ -3,7 +3,7 @@
 ![Main poster](.github/media/Poster_1080p.jpeg)
 
 > **Version:** `v0.1.0`  
-> **Godot Compatibility:** Godot 4.x  
+> **Godot Compatibility:** Godot 4.3+  
 > **Language:** GDScript (C# is currently not supported)
 
 > **Disclaimer:** All prompt icons and controller artwork used in the `demo/` folder are from [Kenney Input Prompts](https://kenney.nl/assets/input-prompts). I do not hold any rights over their creation or distribution.

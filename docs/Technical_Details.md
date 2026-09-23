@@ -6,7 +6,7 @@ nav_order: 4
 
 # System Architecture & Deep Dive
 
-> This document is for anyone who wants to know what goes on under the hood of the **Godot Advanced Input System (GAIS)**. If you just want to get your game up and running, you can safely skip this and check the [Getting Started Guide](Getting_Started.md).
+> This document is for anyone who wants to know what goes on under the hood of the **Godot Advanced Input System (GAIS)**. If you just want to get your game up and running, you can safely skip this and check the [Getting Started Guide](Introduction.md).
 
 ---
 
